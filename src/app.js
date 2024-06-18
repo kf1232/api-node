@@ -3,26 +3,23 @@ const express = require('express');
 const app = express();
 const port = process.env.PORT || 3000;
 const itemRoutes = require('./routes/itemRoutes');
-const { sequelize } = require('./models');
-const logger = require('./utils/logger');
+const { sequelize, seedDatabase } = require('./models');
+const requestLogger = require('./middlewares/requestLogger');
+const errorHandler = require('./middlewares/errorHandler');
 
 app.use(express.json());
-
-app.use((req, res, next) => {
-  logger.info(`${req.method} ${req.url}`);
-  next();
-});
+app.use(requestLogger);
 
 app.use('/items', itemRoutes);
 
-app.use((err, req, res, next) => {
-  logger.error(err.stack);
-  res.status(500).send('Something broke!');
-});
+app.use(errorHandler);
 
-sequelize.sync().then(() => {
+sequelize.sync().then(async () => {
+  if (process.env.NODE_ENV === 'development') {
+    await seedDatabase();
+  }
   app.listen(port, () => {
-    logger.info(`Server is running on http://localhost:${port} in ${process.env.NODE_ENV} mode`);
+    console.log(`Server is running on http://localhost:${port} in ${process.env.NODE_ENV} mode`);
   });
 });
 
