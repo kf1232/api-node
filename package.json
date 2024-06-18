@@ -4,17 +4,21 @@
   "description": "",
   "main": "src/app.js",
   "scripts": {
-    "start": "nodemon --watch src --exec node src/app.js"
+    "start": "nodemon",
+    "swagger-autogen": "node src/swagger.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "concurrently": "^8.2.2",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
     "mysql2": "^3.10.1",
     "sequelize": "^6.37.3",
     "sqlite3": "^5.1.7",
+    "swagger-autogen": "^2.23.7",
+    "swagger-ui-express": "^5.0.1",
     "tedious": "^18.2.0",
     "winston": "^3.13.0",
     "winston-daily-rotate-file": "^5.0.0"

@@ -1,0 +1,7 @@
+{
+    "watch": ["src"],
+    "ext": "js,json",
+    "ignore": ["src/swagger-output.json"],
+    "exec": "npm run swagger-autogen && node src/app.js"
+  }
+  

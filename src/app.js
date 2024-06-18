@@ -1,4 +1,6 @@
 const express = require('express');
+const swaggerUi = require('swagger-ui-express');
+const swaggerFile = require('./swagger-output.json');
 const app = express();
 const port = process.env.PORT || 3000;
 const itemRoutes = require('./routes/itemRoutes');
@@ -11,6 +13,7 @@ app.use(express.json());
 app.use(requestLogger);
 
 app.use('/items', itemRoutes);
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
 app.use(errorHandler);
 
