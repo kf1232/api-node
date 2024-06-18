@@ -26,13 +26,16 @@ const sslOptions = {
 
 app.use(express.json());
 app.use(requestLogger);
-app.use(redirectHttpToHttps);
+
 
 app.use('/items', itemRoutes);
+
 app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
 app.use(notFoundHandler);
 app.use(errorHandler);
+app.use(redirectHttpToHttps);
+
 
 sequelize.sync().then(async () => {
   if (process.env.NODE_ENV === 'development') {

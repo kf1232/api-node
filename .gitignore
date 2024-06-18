@@ -3,3 +3,4 @@ logs/
 certs/
 
 .env
+src/swagger-output.json
