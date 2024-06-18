@@ -2,25 +2,37 @@
   "name": "my-express-api",
   "version": "1.0.0",
   "description": "A basic Node.js API using Express",
-  "main": "src/app.js",
+  "main": "index.js",
   "scripts": {
-    "swagger-autogen": "node src/swagger.js",
-    "start": "concurrently \"npm run swagger-autogen\" \"nodemon --watch src --exec node src/app.js\"",
-    "test": "cross-env NODE_ENV=development mocha --recursive --exit"
+    "dev": "nodemon"
+  },
+  "nodemonConfig": {
+    "watch": [
+      "./src"
+    ],
+    "ext": "js, json",
+    "ignore": [
+      "*/*.json",
+      "./node_modules"
+    ],
+    "exec": "node swagger.js && node ./src/index.js"
   },
   "author": "Your Name",
   "license": "MIT",
   "dependencies": {
+    "axios": "^1.7.2",
     "config": "^3.3.11",
+    "cors": "^2.8.5",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "fs": "^0.0.1-security",
     "https": "^1.0.0",
+    "jsonwebtoken": "^9.0.2",
     "sequelize": "^6.6.2",
     "sqlite3": "^5.0.0",
-    "swagger-autogen": "^2.15.0",
-    "swagger-ui-express": "^4.1.6",
-    "tedious": "^11.3.0",
+    "swagger-autogen": "^2.23.0",
+    "swagger-ui-express": "^5.0.0",
+    "tedious": "^18.2.1",
     "winston": "^3.3.3",
     "winston-daily-rotate-file": "^4.5.0"
   },

@@ -1,3 +1,4 @@
+require('dotenv').config();
 const swaggerAutogen = require('swagger-autogen')();
 
 const doc = {
@@ -5,13 +6,11 @@ const doc = {
     title: '2024 Template API Services',
     description: 'API Template service for future projects.  Uses HTTPS, Testing, Logging, and some other things.',
   },
-  host: 'localhost:3000',
-  schemes: ['https','http'],
+  host: `${process.env.HOST}:${process.env.HTTPS_PORT}`,
+  schemes: ['https'],
 };
 
-const outputFile = './swagger-output.json';
-const endpointsFiles = ['./routes/*.js'];
+const outputFile = './src/swagger-output.json'
+const endpointsFiles = ['./src/index.js']
 
-swaggerAutogen(outputFile, endpointsFiles, doc).then(() => {
-  require('./app');
-});
+swaggerAutogen(outputFile, endpointsFiles, doc);
