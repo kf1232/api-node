@@ -1,28 +1,14 @@
-require('dotenv').config();
-const { Sequelize } = require('sequelize');
+const sequelize = require('../config/database');
 const ItemModel = require('./itemModel');
 
-const isDevelopment = process.env.NODE_ENV === 'development';
+const Item = ItemModel(sequelize, require('sequelize'));
 
-const sequelize = new Sequelize(
-  isDevelopment ? 'sqlite::memory:' : process.env.DB_URL,
-  {
-    dialect: isDevelopment ? 'sqlite' : 'mysql',
-    logging: false,
-  }
-);
-
-const Item = ItemModel(sequelize, Sequelize);
-
-const seedDatabase = async () => {
-  if (isDevelopment) {
-    const seedItems = require('../seeders/seedItems');
-    await seedItems();
-  }
+const initializeDatabase = async () => {
+  await sequelize.sync({ force: true });
 };
 
 module.exports = {
   sequelize,
   Item,
-  seedDatabase,
+  initializeDatabase,
 };

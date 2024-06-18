@@ -14,7 +14,6 @@ const seedItems = [
 ];
 
 const seedDatabase = async () => {
-  await Item.sync({ force: true });
   await Item.bulkCreate(seedItems);
   console.log('Database has been seeded with items.');
 };

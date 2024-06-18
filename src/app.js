@@ -1,9 +1,9 @@
-require('dotenv').config();
 const express = require('express');
 const app = express();
 const port = process.env.PORT || 3000;
 const itemRoutes = require('./routes/itemRoutes');
-const { sequelize, seedDatabase } = require('./models');
+const { sequelize, initializeDatabase } = require('./models');
+const seedDatabase = require('./seeders/seedItems');
 const requestLogger = require('./middlewares/requestLogger');
 const errorHandler = require('./middlewares/errorHandler');
 
@@ -16,6 +16,7 @@ app.use(errorHandler);
 
 sequelize.sync().then(async () => {
   if (process.env.NODE_ENV === 'development') {
+    await initializeDatabase();
     await seedDatabase();
   }
   app.listen(port, () => {
