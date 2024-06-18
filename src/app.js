@@ -7,13 +7,15 @@ const itemRoutes = require('./routes/itemRoutes');
 const { sequelize, initializeDatabase } = require('./models');
 const seedDatabase = require('./seeders/seedItems');
 const requestLogger = require('./middlewares/requestLogger');
-const errorHandler = require('./middlewares/errorHandler');
+const { notFoundHandler, errorHandler } = require('./middlewares/errorHandler');
 
 app.use(express.json());
 app.use(requestLogger);
 
 app.use('/items', itemRoutes);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerFile));
+
+app.use(notFoundHandler);
 
 app.use(errorHandler);
 
