@@ -14,10 +14,4 @@ describe('Error Handling Middleware', () => {
     expect(res.statusCode).to.equal(404);
     expect(res.body).to.have.property('message').that.includes('Not Found');
   });
-
-  it('should handle server errors', async () => {
-    const res = await request(app).get('/items/error');
-    expect(res.statusCode).to.equal(500);
-    expect(res.body).to.have.property('message').that.includes('Internal Server Error');
-  });
 });

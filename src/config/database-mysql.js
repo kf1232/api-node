@@ -5,10 +5,12 @@ const config = {
   development: {
     dialect: 'sqlite',
     storage: ':memory:',
+    logging: false,
   },
   production: {
     url: process.env.DB_URL,
     dialect: 'mysql',
+    logging: false,
   },
 };
 
@@ -17,7 +19,7 @@ const sequelize = env === 'development'
   ? new Sequelize(config.development)
   : new Sequelize(config.production.url, {
       dialect: config.production.dialect,
-      logging: false,
+      logging: config.production.logging,
     });
 
 module.exports = sequelize;
