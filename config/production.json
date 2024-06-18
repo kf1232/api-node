@@ -1,7 +1,15 @@
 {
+    "app": {
+        "port": 3000,
+        "httpsPort": 3443
+    },
     "db": {
-        "url": "DB_URL",
-        "dialect": "mysql",
+        "dialect": "sqlite",
+        "storage": ":memory:",
         "logging": false
+    },
+    "ssl": {
+        "key": "./certs/key.pem",
+        "cert": "./certs/cert.pem"
     }
 }

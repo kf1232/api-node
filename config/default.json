@@ -9,7 +9,7 @@
         "logging": false
     },
     "ssl": {
-        "key": "SSL_KEY_PATH",
-        "cert": "SSL_CERT_PATH"
+        "key": "./certs/key.pem",
+        "cert": "./certs/cert.pem"
     }
 }
