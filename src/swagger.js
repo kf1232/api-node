@@ -9,7 +9,7 @@ const doc = {
     description: 'API documentation',
   },
   host: `localhost:${process.env.PORT || 3000}`,
-  schemes: ['http', 'https'],
+  schemes: ['https'],
 };
 
 swaggerAutogen(outputFile, endpointsFiles, doc);

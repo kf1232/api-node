@@ -16,6 +16,7 @@ const { sequelize, initializeDatabase } = require('./models');
 const seedDatabase = require('./seeders/seedItems');
 const requestLogger = require('./middlewares/requestLogger');
 const { notFoundHandler, errorHandler } = require('./middlewares/errorHandler');
+const redirectHttpToHttps = require('./middlewares/redirectHttpToHttps');
 
 // SSL Certificates
 const sslOptions = {
@@ -25,21 +26,12 @@ const sslOptions = {
 
 app.use(express.json());
 app.use(requestLogger);
-
-// Redirect HTTP to HTTPS
-app.use((req, res, next) => {
-  if (req.secure) {
-    return next();
-  }
-  res.redirect(`https://${req.headers.host.split(':')[0]}:${httpsPort}${req.url}`);
-});
+app.use(redirectHttpToHttps);
 
 app.use('/items', itemRoutes);
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerFile));
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
-// Catch-all for 404 Not Found
 app.use(notFoundHandler);
-
 app.use(errorHandler);
 
 sequelize.sync().then(async () => {
