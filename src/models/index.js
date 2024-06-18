@@ -1,4 +1,5 @@
-const sequelize = require('../config/database');
+const sequelize = require('../config/database-mysql');
+//const sequelize_mssql = require('../config/database-mssql');
 const ItemModel = require('./itemModel');
 
 const Item = ItemModel(sequelize, require('sequelize'));
