@@ -3,7 +3,6 @@ require('winston-daily-rotate-file');
 
 const logDirectory = './logs';
 
-// Ensure log directory exists
 const fs = require('fs');
 if (!fs.existsSync(logDirectory)) {
   fs.mkdirSync(logDirectory);
