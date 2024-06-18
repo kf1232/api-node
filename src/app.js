@@ -5,9 +5,12 @@ const https = require('https');
 const fs = require('fs');
 const swaggerUi = require('swagger-ui-express');
 const swaggerFile = require('./swagger-output.json');
+const config = require('config'); // Use the config package for configuration management
+
 const app = express();
-const port = process.env.PORT || 3000;
-const httpsPort = process.env.HTTPS_PORT || 3443;
+const port = config.get('app.port');
+const httpsPort = config.get('app.httpsPort');
+
 const itemRoutes = require('./routes/itemRoutes');
 const { sequelize, initializeDatabase } = require('./models');
 const seedDatabase = require('./seeders/seedItems');
@@ -16,8 +19,8 @@ const { notFoundHandler, errorHandler } = require('./middlewares/errorHandler');
 
 // SSL Certificates
 const sslOptions = {
-  key: fs.readFileSync('./certs/key.pem'),
-  cert: fs.readFileSync('./certs/cert.pem'),
+  key: fs.readFileSync(config.get('ssl.key')),
+  cert: fs.readFileSync(config.get('ssl.cert')),
 };
 
 app.use(express.json());

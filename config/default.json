@@ -1,0 +1,15 @@
+{
+    "app": {
+        "port": 3000,
+        "httpsPort": 3443
+    },
+    "db": {
+        "dialect": "sqlite",
+        "storage": ":memory:",
+        "logging": false
+    },
+    "ssl": {
+        "key": "SSL_KEY_PATH",
+        "cert": "SSL_CERT_PATH"
+    }
+}

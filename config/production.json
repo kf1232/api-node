@@ -1,0 +1,7 @@
+{
+    "db": {
+        "url": "DB_URL",
+        "dialect": "mysql",
+        "logging": false
+    }
+}
